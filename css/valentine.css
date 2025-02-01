@@ -1,9 +1,12 @@
+@import 'constants.css';
+
 body {
   text-align: center;
   margin-top: 30px;
   font-family: "Courier";
-  background-color: #fff5e4;
-  color: #ff9494;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  
 }
 
 img {
@@ -23,17 +26,23 @@ img {
   margin: 10px;
   font-family: "courier";
   margin-bottom: 20px;
-  background-color: #ffe3e1;
-  color: #e67373;
+  background-color: var(--button-background);
+  color: var(--text-secondary);
   border-radius: 12px;
-  border: 2px solid #ffe3e1;
-  box-shadow: 1px 1px 2px #ff9494;
+  border: 2px solid var(--button-border);
+  box-shadow: 1px 1px 2px var(--shadow-primary);
   transition: 0.3s;
 }
 
 .answerButton:hover {
-  background-color: #ff9494;
-  color: #ffe3e1;
-  border: 2px solid #ff9494;
-  box-shadow: 1px 1px 2px #ffe3e1;
+  background-color: var(--button-hover-background);
+  color: var(--button-background);
+  border: 2px solid var(--button-hover-border);
+  box-shadow: 1px 1px 2px var(--shadow-secondary);
+}
+
+.style-script-regular {
+  font-family: "Style Script", serif;
+  font-weight: 400;
+  font-style: normal;
 }

@@ -55,7 +55,7 @@
           ><input
             type="checkbox"
             name="activities"
-            value="kunsthalle"
+            value="exhibition"
           />exhibition</label
         >
       </div>
@@ -65,13 +65,41 @@
           ><input
             type="checkbox"
             name="activities"
-            value="park.jpeg"
+            value="park"
           />park</label
         >
       </div>
     </div>
-    <button class="button" onclick="location.href='lastpage.html'">
+    <button class="button" onclick="handleLastPage()">
       Last page
     </button>
+
+    <!-- Add Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    
+    <script>
+      // Initialize Firebase
+      const firebaseConfig = {
+        databaseURL: "https://aisu-fcda4-default-rtdb.firebaseio.com",
+      };
+      firebase.initializeApp(firebaseConfig);
+
+      function handleLastPage() {
+        const checkboxes = document.querySelectorAll('input[name="activities"]:checked');
+        const selectedActivities = Array.from(checkboxes).map(cb => cb.value);
+        
+        // Save to Firebase
+        const dbRef = firebase.database().ref('activities');
+        dbRef.push(selectedActivities)
+          .then(() => {
+            // Navigate to next page
+            location.href = 'lastpage.html';
+          })
+          .catch(error => {
+            console.error("Error saving activities:", error);
+          });
+      }
+    </script>
   </body>
 </html>

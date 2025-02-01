@@ -1,9 +1,11 @@
+@import 'constants.css';
+
 body {
   text-align: center;
   margin-top: 30px;
   font-family: "Courier";
-  background-color: #fff5e4;
-  color: #ff9494;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
 }
 #foodquestion {
   font-size: 50px;
@@ -13,18 +15,20 @@ body {
   display: inline-block;
   margin: 10px;
   vertical-align: top;
-  color: #ff9494;
+  color: var(--text-primary);
 }
 .food-item img {
   height: 200px;
   width: 200px;
   border-radius: 50%;
-  border: 5px solid #ff9494;
+  border: 5px solid var(--border-primary);
   object-fit: cover;
   padding: 10px;
 }
 .food-item label {
   display: block;
+  color: black;
+  font-weight: bold;
 }
 .button {
   padding: 10px 20px;
@@ -33,8 +37,8 @@ body {
   margin: 10px;
   font-family: "courier";
   margin-bottom: 20px;
-  background-color: #ffe3e1;
-  color: #e67373;
+  background-color: var(--button-background);
+  color: var(--text-secondary);
   border-radius: 12px;
-  border: 2px solid #ffe3e1;
+  border: 2px solid var(--button-border);
 }

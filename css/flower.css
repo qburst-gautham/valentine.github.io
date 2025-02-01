@@ -1,3 +1,5 @@
+@import 'constants.css';
+
 *,
 *::after,
 *::before{
@@ -13,14 +15,14 @@
 }
 
 body{
-    background-color: #FFF5E4;
+    background-color: var(--background-primary);
     min-height: 100vh;
     display: flex;
     flex-direction: column; /* Change the direction to column */
     align-items: center;
     justify-content: flex-start; /* Align items to the start of the container */
     overflow: hidden;
-	color: #FF9494;
+	color: var(--text-primary);
 	font-family: courier;
 }
 
@@ -32,6 +34,7 @@ body{
     position: relative; /* Adjust based on layout needs */
 	margin-bottom: 400px;
 	font-size: 50px;
+    color: var(--text-primary);
 }
 
 .flower{

@@ -8,14 +8,93 @@
   </head>
   <body>
     <h1 title="choose a date">Are you free on ...</h1>
-    <form class="form-group">
+    <form class="form-group" id="dateForm">
       <label>Which day: (select a date)</label>
       <div>
-        <input type="date" />
-        <button class="button" type="submit" formaction="food.html">
+        <input type="date" id="selectedDate" required />
+        <button class="button" type="submit">
           Submit
         </button>
       </div>
     </form>
+
+    <!-- Changed to video element -->
+    <video id="yummyVideo" class="video-animation" style="display: none;">
+      <source src="gautha.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <style>
+      .video-animation {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80vw; /* 80% of viewport width */
+        max-width: 600px; /* Maximum width */
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+    </style>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+      // Import Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+      // Your Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBlT9gZRYlCJaTxHjx-5i5ue0PVrPtFl4A",
+        authDomain: "aisu-fcda4.firebaseapp.com",
+        projectId: "aisu-fcda4",
+        databaseURL: "https://aisu-fcda4-default-rtdb.firebaseio.com",
+        storageBucket: "aisu-fcda4.firebasestorage.app",
+        messagingSenderId: "528725026291",
+        appId: "1:528725026291:web:b4267713d2d5b5e0d75e86",
+        measurementId: "G-W9VWZSK5LH"
+      };
+
+      // Initialize Firebase
+      try {
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Handle form submission
+        document.getElementById('dateForm').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          const selectedDate = document.getElementById('selectedDate').value;
+          const dateId = new Date().getTime(); // Create unique ID based on timestamp
+          
+          try {
+            // Store the date in Realtime Database
+            await set(ref(db, 'dates/' + dateId), {
+              date: selectedDate,
+              timestamp: new Date().toISOString()
+            });
+            
+            console.log("Date saved successfully");
+            // Show and play video before redirecting
+            const video = document.getElementById('yummyVideo');
+            video.style.display = 'block';
+            
+            // Play video and wait for it to end before redirecting
+            video.play();
+            video.addEventListener('ended', () => {
+              window.location.href = 'food.html';
+            });
+          } catch (error) {
+            console.error("Error saving date: ", error);
+            alert("Error saving date: " + error.message);
+          }
+        });
+      } catch (error) {
+        console.error("Error initializing Firebase: ", error);
+        alert("Error initializing Firebase: " + error.message);
+      }
+    </script>
   </body>
 </html>

@@ -8,7 +8,7 @@
   </head>
   <body>
     <div id="foodquestion">
-      <b>What food would you like to eat?</b>
+      <b>എന്താ കഴിക്കണ്ടേ?</b>
     </div>
 
     <div class="food-selection">
@@ -24,9 +24,9 @@
         >
       </div>
       <div class="food-item">
-        <img src="food/dog.jpeg" alt="dog" />
+        <img src="https://www.shutterstock.com/image-photo/kerala-meals-red-rice-sardines-600nw-1919028029.jpg" alt="dog" />
         <label
-          ><input type="checkbox" name="food" value="hotdog" /> hotdog</label
+          ><input type="checkbox" name="food" value="ചോറും കറിയും" />ചോറും കറിയും</label
         >
       </div>
       <div class="food-item">
@@ -53,12 +53,51 @@
         <label><input type="checkbox" name="food" value="steak" /> steak</label>
       </div>
       <div class="food-item">
-        <img src="food/sushi.jpeg" alt="sushi" />
-        <label><input type="checkbox" name="food" value="sushi" /> sushi</label>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRouxD4TfhEdQZKdyKt7OOBBF1OkzqExB_AVg&s" alt="Hot Dog" />
+        <label><input type="checkbox" name="food" value="Hot Dog" /> Hot Dog</label>
       </div>
     </div>
-    <button class="button" onclick="location.href='dessert.html'">
+    <button class="button" onclick="saveAndContinue()">
       Continue UWU
     </button>
+    
+    <script>
+    function saveAndContinue() {
+        const selectedFoods = [];
+        const checkboxes = document.querySelectorAll('input[name="food"]:checked');
+        
+        checkboxes.forEach(checkbox => {
+            selectedFoods.push(checkbox.value);
+        });
+
+        if (selectedFoods.length > 0) {
+            // Generate a unique key using timestamp
+            const timestamp = new Date().getTime();
+            const foodData = {
+                selectedItems: selectedFoods,
+                timestamp: timestamp
+            };
+
+            // Save to Firebase
+            fetch('https://aisu-fcda4-default-rtdb.firebaseio.com/food-selections/' + timestamp + '.json?auth=1OL6avfONBvTOaNbN8TxCwKMfz8m4iDJ3mgIsD3u', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(foodData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                window.location.href = 'dessert.html';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        } else {
+            alert('Please select at least one food item!');
+        }
+    }
+    </script>
   </body>
 </html>

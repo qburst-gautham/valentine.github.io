@@ -7,17 +7,75 @@
     <link rel="stylesheet" href="css/lastpage.css" />
   </head>
   <body>
-    <div id="thankyou"><b>Thank you</b></div>
+    <div id="thankyou"><b>ഉമ്മ! ഉമ്മ! ഉമ്മ!!!
+    </b></div>
 
+    <div id="rainfall-container"></div>
+    
     <img id="rizz" src="rizz.gif" alt="rizzler god" class="responsive" />
     <br />
     <audio controls autoplay loop>
       <source src="congratulations.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
-    <h1>Don't go yet!</h1>
+    <h1>പോകാൻ വരട്ടേ</h1>
     <button class="button" onclick="location.href='date.html'">
-      Click me UWU
+      Click me Aisu UWU
     </button>
+    
+    <script>
+      function createRainingImage() {
+        const container = document.getElementById('rainfall-container');
+        const img = document.createElement('img');
+        
+        // Array of image paths - replace these with your actual image paths
+        const images = [
+          'rainfall/rain1.png',
+          'rainfall/rain2.png',
+          'rainfall/rain3.png',
+          'rainfall/rain4.png',
+          'rainfall/rain5.png',
+          'rainfall/rain6.png',
+          'rainfall/rain7.png', 
+          'rainfall/rain8.png',
+          'rainfall/rain9.png',
+          'rainfall/rain10.png',
+          'rainfall/rain11.png',
+          'rainfall/rain12.png',
+        ];
+        
+        // Randomly select an image
+        img.src = images[Math.floor(Math.random() * images.length)];
+        
+        // Random starting position and properties
+        img.style.left = Math.random() * 100 + 'vw';
+        img.style.width = '80px';
+        img.style.position = 'fixed';
+        img.style.top = '-50px';
+        img.style.zIndex = '1';
+        
+        // Fixed rotation between 45 and 75 degrees
+        const rotation = -90 + Math.random() * 200;
+        img.style.transform = `rotate(${rotation}deg)`;
+        
+        container.appendChild(img);
+        
+        // Random falling speed between 1 and 4
+        const speed = 1 + Math.random() * 3;
+        let pos = -50;
+        const fall = setInterval(() => {
+          if (pos > window.innerHeight) {
+            container.removeChild(img);
+            clearInterval(fall);
+          } else {
+            pos += speed;
+            img.style.top = pos + 'px';
+          }
+        }, 10);
+      }
+
+      // Create new falling image every 200ms
+      setInterval(createRainingImage, 300);
+    </script>
   </body>
 </html>

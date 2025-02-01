@@ -1,9 +1,11 @@
+@import 'constants.css';
+
 body {
   text-align: center;
   margin-top: 30px;
   font-family: "Courier";
-  background-color: #fff5e4;
-  color: #ff9494;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
 }
 #thankyou {
   font-size: 50px;
@@ -19,17 +21,32 @@ body {
   margin: 10px;
   font-family: "courier";
   margin-bottom: 20px;
-  background-color: #ffe3e1;
-  color: #e67373;
+  background-color: var(--button-background);
+  color: var(--text-secondary);
   border-radius: 12px;
-  border: 2px solid #ffe3e1;
-  box-shadow: 1px 1px 2px #ff9494;
+  border: 2px solid var(--button-border);
+  box-shadow: 1px 1px 2px var(--shadow-primary);
   transition: 0.3s;
 }
 
 .button:hover {
-  background-color: #ff9494;
-  color: #ffe3e1;
-  border: 2px solid #ff9494;
-  box-shadow: 1px 1px 2px #ffe3e1;
+  background-color: var(--button-hover-background);
+  color: var(--button-background);
+  border: 2px solid var(--button-hover-border);
+  box-shadow: 1px 1px 2px var(--shadow-secondary);
+}
+
+#rainfall-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#rainfall-container img {
+  opacity: 0.8;
+  transform: rotate(15deg);
 }

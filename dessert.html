@@ -7,48 +7,64 @@
     <link rel="stylesheet" href="css/dessert.css" />
   </head>
   <body>
-    <div id="dessertquestion">Which dessert we eatin cuh</div>
+    <div id="dessertquestion">Which dessert we eatin ?</div>
 
     <div class="dessert-selection">
       <div class="dessert-item">
-        <img src="food/boba.jpeg" alt="boba" />
-        <label
-          ><input type="checkbox" name="dessert" value="boba" /> boba</label
-        >
+        <img src="https://sugargeekshow.com/wp-content/uploads/2022/02/lemon_tart-25.jpg" alt="lemon tart" />
+        <label><input type="checkbox" name="dessert" value="lemontart" /> lemon tart</label>
       </div>
       <div class="dessert-item">
-        <img src="food/churro.jpeg" alt="churro" />
-        <label
-          ><input type="checkbox" name="dessert" value="churro" /> churro</label
-        >
+        <img src="https://cdn.bakedbree.com/uploads/2011/06/lemon-white-chocolate-mousse_18.jpg" alt="white chocolate lavender berry mousse" />
+        <label><input type="checkbox" name="dessert" value="lavenderberry" /> white chocolate cream with lavender berry mousse</label>
       </div>
       <div class="dessert-item">
-        <img src="food/che.jpeg" alt="che" />
-        <label><input type="checkbox" name="dessert" value="che" /> che</label>
+        <img src="https://driscolls.imgix.net/-/media/assets/recipes/mixed-berry-pavlova.ashx?w=1200&h=900&fit=crop&crop=entropy&q=50&auto=format%2Ccompress&cs=srgb&ixlib=imgixjs-3.4.2" alt="berry pavlova" />
+        <label><input type="checkbox" name="dessert" value="pavlova" /> berry Pavlova</label>
       </div>
       <div class="dessert-item">
-        <img src="food/mochi.jpeg" alt="mochi" />
-        <label
-          ><input type="checkbox" name="dessert" value="mochi" /> mochi</label
-        >
+        <img src="https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg" alt="boba" />
+        <label><input type="checkbox" name="dessert" value="boba" /> boba</label>
       </div>
       <div class="dessert-item">
-        <img src="food/randombun.jpeg" alt="randombun" />
-        <label
-          ><input type="checkbox" name="dessert" value="randombun" /> random
-          bun</label
-        >
+        <img src="https://feelslikehomeblog.com/wp-content/uploads/2023/12/Chocolate-Cherry-Cake-Easy-Black-Forest-Cake-Naturally-Gluten-Free-square-featured.png" alt="chocolate cherry cake" />
+        <label><input type="checkbox" name="dessert" value="cherrycake" /> chocolate sponge cake with american sour cherries</label>
       </div>
       <div class="dessert-item">
-        <img src="food/taiyaki.jpeg" alt="taiyaki" />
-        <label
-          ><input type="checkbox" name="dessert" value="taiyaki" />
-          taiyaki</label
-        >
+        <img src="food/wild berry.jpg" alt="wild berry" />
+        <label><input type="checkbox" name="dessert" value="wildberry" /> wild berry</label>
       </div>
     </div>
-    <button class="button" onclick="location.href='activities.html'">
+    <button class="button" onclick="handleContinue()">
       Continue UWU
     </button>
+
+    <!-- Add Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    
+    <script>
+      // Initialize Firebase
+      const firebaseConfig = {
+        databaseURL: "https://aisu-fcda4-default-rtdb.firebaseio.com",
+      };
+      firebase.initializeApp(firebaseConfig);
+
+      function handleContinue() {
+        const checkboxes = document.querySelectorAll('input[name="dessert"]:checked');
+        const selectedDesserts = Array.from(checkboxes).map(cb => cb.value);
+        
+        // Save to Firebase
+        const dbRef = firebase.database().ref('desserts');
+        dbRef.push(selectedDesserts)
+          .then(() => {
+            // Navigate to next page
+            location.href = 'activities.html';
+          })
+          .catch(error => {
+            console.error("Error saving desserts:", error);
+          });
+      }
+    </script>
   </body>
 </html>

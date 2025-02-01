@@ -1,9 +1,11 @@
+@import 'constants.css';
+
 body {
   text-align: center;
   margin-top: 30px;
   font-family: "Courier";
-  background-color: #fff5e4;
-  color: #ff9494;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
 }
@@ -16,7 +18,7 @@ form .header {
   display: flex;
   font-size: 20px;
   margin-bottom: 20px;
-  color: #ff9494;
+  color: var(--text-primary);
 }
 
 .form-group {
@@ -33,17 +35,17 @@ form .header {
   margin: 10px;
   font-family: "courier";
   margin-bottom: 10px;
-  background-color: #ffe3e1;
-  color: #e67373;
+  background-color: var(--button-background);
+  color: var(--text-secondary);
   border-radius: 12px;
-  border: 2px solid #ffe3e1;
+  border: 2px solid var(--button-border);
   transition: 0.3s;
 }
 
 .button:hover {
-  background-color: #ff9494;
-  color: #ffe3e1;
-  border: 2px solid #ff9494;
+  background-color: var(--button-hover-background);
+  color: var(--button-background);
+  border: 2px solid var(--button-hover-border);
 }
 
 input[type="date"] {
@@ -53,8 +55,8 @@ input[type="date"] {
   margin: 10px;
   font-family: "courier";
   margin-bottom: 10px;
-  background-color: #ffe3e1;
-  color: #e67373;
+  background-color: var(--button-background);
+  color: var(--text-secondary);
   border-radius: 12px;
-  border: 2px solid #ffe3e1;
+  border: 2px solid var(--button-border);
 }

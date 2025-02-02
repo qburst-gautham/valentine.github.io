@@ -57,6 +57,33 @@
         <label><input type="checkbox" name="food" value="Hot Dog" /> Hot Dog</label>
       </div>
     </div>
+    
+    <div class="custom-food">
+      <label for="customFood">Or type your own cuisine:</label>
+      <input type="text" id="customFood" name="customFood" placeholder="Enter Aisu Ideas">
+    </div>
+
+    <!-- Add video element similar to date.html -->
+    <video id="yummyVideo" class="video-animation" style="display: none;">
+      <source src="aisuval.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <style>
+      .video-animation {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80vw; /* 80% of viewport width */
+        max-width: 600px; /* Maximum width */
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+    </style>
+
     <button class="button" onclick="saveAndContinue()">
       Continue UWU
     </button>
@@ -65,20 +92,23 @@
     function saveAndContinue() {
         const selectedFoods = [];
         const checkboxes = document.querySelectorAll('input[name="food"]:checked');
+        const customFood = document.getElementById('customFood').value.trim();
         
         checkboxes.forEach(checkbox => {
             selectedFoods.push(checkbox.value);
         });
 
+        if (customFood) {
+            selectedFoods.push(customFood);
+        }
+
         if (selectedFoods.length > 0) {
-            // Generate a unique key using timestamp
             const timestamp = new Date().getTime();
             const foodData = {
                 selectedItems: selectedFoods,
                 timestamp: timestamp
             };
 
-            // Save to Firebase
             fetch('https://aisu-fcda4-default-rtdb.firebaseio.com/food-selections/' + timestamp + '.json?auth=1OL6avfONBvTOaNbN8TxCwKMfz8m4iDJ3mgIsD3u', {
                 method: 'PUT',
                 headers: {
@@ -89,7 +119,15 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-                window.location.href = 'dessert.html';
+                // Show and play video before redirecting
+                const video = document.getElementById('yummyVideo');
+                video.style.display = 'block';
+                
+                // Play video and wait for it to end before redirecting
+                video.play();
+                video.addEventListener('ended', () => {
+                    window.location.href = 'dessert.html';
+                });
             })
             .catch((error) => {
                 console.error('Error:', error);

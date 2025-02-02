@@ -70,6 +70,12 @@
         >
       </div>
     </div>
+    
+    <div class="custom-activity">
+      <label for="customActivity">Or type your own activity:</label>
+      <input type="text" id="customActivity" name="customActivity" placeholder="Enter Aisu Ideas">
+    </div>
+
     <button class="button" onclick="handleLastPage()">
       Last page
     </button>
@@ -86,14 +92,22 @@
       firebase.initializeApp(firebaseConfig);
 
       function handleLastPage() {
+        const selectedActivities = [];
         const checkboxes = document.querySelectorAll('input[name="activities"]:checked');
-        const selectedActivities = Array.from(checkboxes).map(cb => cb.value);
+        const customActivity = document.getElementById('customActivity').value.trim();
+        
+        checkboxes.forEach(checkbox => {
+            selectedActivities.push(checkbox.value);
+        });
+
+        if (customActivity) {
+            selectedActivities.push(customActivity);
+        }
         
         // Save to Firebase
         const dbRef = firebase.database().ref('activities');
         dbRef.push(selectedActivities)
           .then(() => {
-            // Navigate to next page
             location.href = 'lastpage.html';
           })
           .catch(error => {

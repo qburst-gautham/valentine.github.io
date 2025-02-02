@@ -16,7 +16,7 @@
       </div>
       <div class="dessert-item">
         <img src="https://cdn.bakedbree.com/uploads/2011/06/lemon-white-chocolate-mousse_18.jpg" alt="white chocolate lavender berry mousse" />
-        <label><input type="checkbox" name="dessert" value="lavenderberry" /> white chocolate cream with lavender berry mousse</label>
+        <label><input type="checkbox" name="dessert" value="lavenderberry" /> white chocolate cream with <br> lavender berry mousse</label>
       </div>
       <div class="dessert-item">
         <img src="https://driscolls.imgix.net/-/media/assets/recipes/mixed-berry-pavlova.ashx?w=1200&h=900&fit=crop&crop=entropy&q=50&auto=format%2Ccompress&cs=srgb&ixlib=imgixjs-3.4.2" alt="berry pavlova" />
@@ -28,13 +28,19 @@
       </div>
       <div class="dessert-item">
         <img src="https://feelslikehomeblog.com/wp-content/uploads/2023/12/Chocolate-Cherry-Cake-Easy-Black-Forest-Cake-Naturally-Gluten-Free-square-featured.png" alt="chocolate cherry cake" />
-        <label><input type="checkbox" name="dessert" value="cherrycake" /> chocolate sponge cake with american sour cherries</label>
+        <label><input type="checkbox" name="dessert" value="cherrycake" /> chocolate sponge cake with <br> american sour cherries</label>
       </div>
       <div class="dessert-item">
         <img src="food/wild berry.jpg" alt="wild berry" />
         <label><input type="checkbox" name="dessert" value="wildberry" /> wild berry</label>
       </div>
     </div>
+
+    <div class="custom-dessert">
+      <label for="customDessert">Or type your own dessert:</label>
+      <input type="text" id="customDessert" name="customDessert" placeholder="Enter your dessert suggestion">
+    </div>
+
     <button class="button" onclick="handleContinue()">
       Continue UWU
     </button>
@@ -51,14 +57,22 @@
       firebase.initializeApp(firebaseConfig);
 
       function handleContinue() {
+        const selectedDesserts = [];
         const checkboxes = document.querySelectorAll('input[name="dessert"]:checked');
-        const selectedDesserts = Array.from(checkboxes).map(cb => cb.value);
+        const customDessert = document.getElementById('customDessert').value.trim();
+        
+        checkboxes.forEach(checkbox => {
+            selectedDesserts.push(checkbox.value);
+        });
+
+        if (customDessert) {
+            selectedDesserts.push(customDessert);
+        }
         
         // Save to Firebase
         const dbRef = firebase.database().ref('desserts');
         dbRef.push(selectedDesserts)
           .then(() => {
-            // Navigate to next page
             location.href = 'activities.html';
           })
           .catch(error => {
